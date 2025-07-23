@@ -29,7 +29,7 @@ const ageSchema = new mongoose.Schema({
 });
 
 
-const Nage = mongoose.model('Nage', ageSchema);
+const Nage = mongoose.model('nages', ageSchema);
 
 //app.use(cors());
 
