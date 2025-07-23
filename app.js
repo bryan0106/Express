@@ -49,7 +49,7 @@ app.use(express.json());
 const addAge = async (req, res) => {
     const { name, age } = req.body; 
     if (!name || !age) {return res.status(400).json({ message: 'Both name and age are required.' });}
-   
+    
     const newAgeEntry = new Nage({name,age});
     try {
         const savedAge = await newAgeEntry.save();
@@ -59,7 +59,7 @@ const addAge = async (req, res) => {
             const errors = Object.values(err.errors).map(el => el.message);
             return res.status(400).json({ message: 'Validation failed', errors });
         }
- res.status(500).json({ message: 'Server error: Could not add age entry.' });
+res.status(500).json({ message: 'Server error: Could not add age entry.' });
     }
 };
 
@@ -68,7 +68,7 @@ const getAge = async (req, res) => {
     try { const ages = await Nage.find(); 
             res.status(200).json(ages);
     } catch (err) { console.error('Error fetching age entries:', err.message);
- res.status(500).json({ message: 'Server error: Could not retrieve age entries.' });
+res.status(500).json({ message: 'Server error: Could not retrieve age entries.' });
     }
 };
 // --- CORRECTED deleteAge FUNCTION ---
@@ -104,8 +104,21 @@ apiRouter.post('/add', addAge);
 apiRouter.get('/', getAge); 
 apiRouter.delete('/:id', deleteAge);
 app.use('/api/age', apiRouter);
+
 app.get('/', (req, res) => {
-    res.send('API is running...');
+    // Get database name from the Mongoose connection
+    const dbName = mongoose.connection.name;
+    // Get collection name from the Nage model
+    const collectionName = Nage.collection.name;
+
+    res.send(`
+        <h1>API is running...</h1>
+        <p><strong>Database Name:</strong> ${dbName}</p>
+        <p><strong>Collection Name for Age entries:</strong> ${collectionName}</p>
+        <p>Age API POST available at http://localhost:${port}/api/age/add</p>
+        <p>Age API GET available at http://localhost:${port}/api/age/</p>
+        <p>Age API DELETE available at http://localhost:${port}/api/age/:id</p>
+    `);
 });
 
 // --- Server Start ---
