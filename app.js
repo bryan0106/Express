@@ -3,7 +3,10 @@ const mongoose = require('mongoose');
 const cors = require('cors'); 
 const app = express();
 const port = process.env.PORT || 3000;
-const dbURI = 'mongodb://127.0.0.1:27017/todoApsp'; 
+//const dbURI = 'mongodb://127.0.0.1:27017/todoApsp'; 
+const dbURI = process.env.MONGO_URI;
+require('dotenv').config();
+
 
 mongoose.connect(dbURI)
   .then(() => console.log('Connected to MongoDB!'))
@@ -28,12 +31,16 @@ const ageSchema = new mongoose.Schema({
 
 const Nage = mongoose.model('Nage', ageSchema);
 
+server.use(cors());
 
-app.use(cors({
-    origin: 'http://localhost:5173', 
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    allowedHeaders: ['Content-Type', 'Authorization'], 
-}));
+// app.use(cors({
+//     origin: 'http://localhost:5173', 
+//     methods: ['GET', 'POST', 'PUT', 'DELETE'],
+//     allowedHeaders: ['Content-Type', 'Authorization'], 
+// }));
+
+
+
 app.use(express.json());
 
 
