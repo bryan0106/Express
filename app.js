@@ -31,7 +31,7 @@ const ageSchema = new mongoose.Schema({
 
 const Nage = mongoose.model('Nage', ageSchema);
 
-server.use(cors());
+app.use(cors());
 
 // app.use(cors({
 //     origin: 'http://localhost:5173', 
