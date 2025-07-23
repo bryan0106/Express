@@ -14,11 +14,7 @@ const MONGO_URI = process.env.MONGO_URI;
 // --- MongoDB Connection Function ---
 const connectDB = async () => {
   try {
-    await mongoose.connect(MONGO_URI, { // Use MONGO_URI here
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-      // Removed useCreateIndex and useFindAndModify as they are deprecated in Mongoose 6+
-    });
+    await mongoose.connect(MONGO_URI);
     console.log('MongoDB Connected successfully!');
   } catch (err) {
     console.error('MongoDB connection error:', err.message);
