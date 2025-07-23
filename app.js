@@ -22,8 +22,7 @@ const ageSchema = new mongoose.Schema({
     age: {
         type: String,
         required: true,
-        default: 1,
-        min: 1
+        trim: true
     }
 
 });
@@ -36,7 +35,7 @@ const Nage = mongoose.model('nages', ageSchema);
 app.use(cors({
     origin: 'https://mongfe.netlify.app', 
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    allowedHeaders: ['Content-Type', 'Authorization'], 
+    allowedHeaders: ['Content-Type'], 
 }));
 
 
