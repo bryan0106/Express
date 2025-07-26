@@ -102,6 +102,9 @@ const apiRouter = express.Router();
 apiRouter.post('/add', addAge);
 apiRouter.get('/', getAge); 
 apiRouter.delete('/:id', deleteAge);
+
+
+
 app.use('/api/age', apiRouter);
 
 app.get('/', (req, res) => {
